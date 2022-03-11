@@ -1,5 +1,5 @@
 data "openstack_compute_keypair_v2" "this" {
-  name = var.openstack_compute_keypair_v2_public_key
+  name = var.openstack_compute_keypair_v2_name
 }
 
 resource "openstack_compute_secgroup_v2" "this" {

@@ -11,25 +11,32 @@ Dev infrastructure for SRE course homework in VK cloud solution.
 ```sh
 source %your_openrc_name%.sh
 ```
-2. Initialize terraform
+
+2. [Add](https://mcs.mail.ru/app/account/key-pairs/) your ssh pubkey to VKS and setup variable in `terraform.tfvars`
+
+```sh
+echo 'openstack_compute_keypair_v2_name = "your key pair name"' >> terraform.tfvars
+```
+
+3. Initialize terraform
 
 ```sh
 terraform init
 ```
 
-3. Plan infra
+4. Plan infra
 
 ```sh
 terraform plan
 ```
 
-4. Provision infra
+5. Provision infra
 
 ```sh
 terraform apply
 ```
 
-5. Destroy infra after testing
+6. Destroy infra after testing
 
 ```sh
 terraform destroy
