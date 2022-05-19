@@ -1,5 +1,8 @@
-data "openstack_compute_keypair_v2" "this" {
-  name = var.openstack_compute_keypair_v2_name
+resource "openstack_compute_keypair_v2" "this" {
+  name       = "admin"
+  public_key = <<-EOT
+    ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDOXNi1fnwNZynxVrOFnVHuNvshQEVdtGFrre3ZL+T4IZ10l8L8Ob8mHbEARCBXxuV5u9Hd+g+SK8/XqvAQUmQsbsjDzC78GHvo/oUqyftW2FpNkyg9Lgf1IqSpS0EFL/Q6YFPCQ7GGJuubsjUkHxu/C4uQobZ6OzO5p4/zU1n6dy7gwAkVskdpmDM6I0KKU1v3j0IXvMoHrLQsWMnUhG54Z5k1NsPWC8MVh/HYfOJTNqW6NGRapsqbHTrUedJZBFNhxaYA1YPeHpTtSWjZGBn6+ABTN/7jKVUlBI/aYJ+b5iTvJ7wTabetCPfkKtn8Y6KpHWy56uKlTw4G1ykVqERRXN5X/2qqlpH7Nohegu3vrJoz/BMKM5bYW7we9YcgGFn5zLx9W24V2nUDqFMFnz0p2Q4FjkZDbbfbmhdc/XU8dwiAJlXPyoWHBkrQrKvws6ebhKLDc9+KEgrVvPPErkdZGL/gpt7R1emZSulsSovK1F7MUivPrL7FqNvZnkEDxZs= a.muradyan@a-muradyan
+EOT
 }
 
 resource "openstack_compute_secgroup_v2" "this" {
@@ -35,7 +38,7 @@ resource "openstack_compute_instance_v2" "ubuntu" {
   name        = "ubuntu"
   image_name  = "Ubuntu-20.04.1-202008"
   flavor_name = var.openstack_compute_instance_v2_flavor_name
-  key_pair    = data.openstack_compute_keypair_v2.this.name
+  key_pair    = openstack_compute_keypair_v2.this.name
 
   config_drive = true
 
@@ -44,11 +47,11 @@ resource "openstack_compute_instance_v2" "ubuntu" {
   ]
 }
 
-resource "openstack_compute_instance_v2" "centos" {
-  name        = "centos"
-  image_name  = "centos7-dummy-2022-02-02-prod.raw"
+resource "openstack_compute_instance_v2" "RHEL" {
+  name        = "RHEL"
+  image_name  = "AlmaLinux-8.5"
   flavor_name = var.openstack_compute_instance_v2_flavor_name
-  key_pair    = data.openstack_compute_keypair_v2.this.name
+  key_pair    = openstack_compute_keypair_v2.this.name
 
   config_drive = true
 
